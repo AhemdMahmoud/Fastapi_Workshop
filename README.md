@@ -25,7 +25,7 @@ This is a simple Student Management application built with FastAPI (backend), HT
 ### Backend Setup
 1. Clone the repository
 ```bash
-git clone <your-repository-url>
+git clone https://github.com/AhemdMahmoud/Fastapi_Workshop.git
 cd student-management-project
 ```
 
