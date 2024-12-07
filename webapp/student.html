@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management API</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+        }
+        input, button {
+            margin: 5px 0;
+            padding: 10px;
+            width: 100%;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Student Management</h1>
+
+        <h2>View All Students</h2>
+        <button onclick="getStudents()">Get Students</button>
+        <table id="studentsTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Grade</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <h2>Add a Student</h2>
+        <form id="addStudentForm">
+            <input type="number" id="studentId" placeholder="Student ID" required />
+            <input type="text" id="studentName" placeholder="Student Name" required />
+            <input type="number" id="studentGrade" placeholder="Student Grade" required />
+            <button type="submit">Add Student</button>
+        </form>
+
+        <h2>Update a Student</h2>
+        <form id="updateStudentForm">
+            <input type="number" id="updateStudentId" placeholder="Student ID to Update" required />
+            <input type="text" id="updateStudentName" placeholder="New Name" required />
+            <input type="number" id="updateStudentGrade" placeholder="New Grade" required />
+            <button type="submit">Update Student</button>
+        </form>
+
+        <h2>Delete a Student</h2>
+        <form id="deleteStudentForm">
+            <input type="number" id="deleteStudentId" placeholder="Student ID to Delete" required />
+            <button type="submit">Delete Student</button>
+        </form>
+    </div>
+
+    <script>
+        const apiUrl = "http://127.0.0.1:8000/students";
+
+        async function getStudents() {
+            const response = await fetch(apiUrl);
+            const students = await response.json();
+
+            const tableBody = document.querySelector("#studentsTable tbody");
+            tableBody.innerHTML = "";
+            students.forEach(student => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${student.id}</td>
+                    <td>${student.name}</td>
+                    <td>${student.grad}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        document.getElementById("addStudentForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const id = document.getElementById("studentId").value;
+            const name = document.getElementById("studentName").value;
+            const grade = document.getElementById("studentGrade").value;
+
+            const response = await fetch(apiUrl, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ id: parseInt(id), name, grad: parseInt(grade) }),
+            });
+
+            const result = await response.json();
+            alert(`Student Added: ${result.name}`);
+            getStudents();
+        });
+
+        document.getElementById("updateStudentForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const id = document.getElementById("updateStudentId").value;
+            const name = document.getElementById("updateStudentName").value;
+            const grade = document.getElementById("updateStudentGrade").value;
+
+            const response = await fetch(`${apiUrl}/${id}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ id: parseInt(id), name, grad: parseInt(grade) }),
+            });
+
+            const result = await response.json();
+            if (result.error) {
+                alert(result.error);
+            } else {
+                alert(`Student Updated: ${result.name}`);
+                getStudents();
+            }
+        });
+
+        document.getElementById("deleteStudentForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const id = document.getElementById("deleteStudentId").value;
+
+            const response = await fetch(`${apiUrl}/${id}`, {
+                method: "DELETE",
+            });
+
+            const result = await response.json();
+            alert(result.message || result.error);
+            getStudents();
+        });
+    </script>
+</body>
+</html>
