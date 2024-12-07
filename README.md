@@ -3,6 +3,17 @@
 ## Project Overview
 This is a simple Student Management application built with FastAPI (backend), HTML, and JavaScript (frontend). The application allows users to perform CRUD (Create, Read, Update, Delete) operations on student records.
 
+# FastAPI Workshop
+
+## Optimize Record Example
+
+This is an example of optimizing a record using FastAPI. Below is a demonstration:
+
+![Optimize Record](https://github.com/AhemdMahmoud/Fastapi_Workshop/raw/main/Record_optimize.gif)
+
+In this workshop, you'll learn how to handle CRUD operations effectively in FastAPI while optimizing your API for better performance.
+
+
 ## Features
 - View all students
 - Add new students
