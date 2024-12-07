@@ -64,6 +64,7 @@ uvicorn students:app --reload
 - `POST /students`: Add a new student
 - `PUT /students/{student_id}`: Update an existing student
 - `DELETE /students/{student_id}`: Delete a student
+- access http://127.0.0.1:8000/docs `Swager UI`
 
 ## Student Model
 ```python
