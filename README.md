@@ -1,7 +1,7 @@
 # Student Management API
 
 ## Project Overview
-This is a simple Student Management application built with FastAPI (backend), HTML, and JavaScript (frontend). The application allows users to perform CRUD (Create, Read, Update, Delete) operations on student records.
+This is a simple Student Management application built with `FastAPI (backend)`, `MongoDB (database)`, `HTML`, and `JavaScript` (frontend). The application allows users to perform` CRUD ` (Create, Read, Update, Delete) operations on student records, with data being stored and managed in a MongoDB database.
 
 # FastAPI Workshop
 
@@ -75,7 +75,7 @@ class Student:
 ```
 
 ## Potential Improvements
-- Add database integration
+- Add database integration          `currently, done it  `
 - Implement more robust error handling
 - Add input validation
 - Create a more sophisticated frontend
